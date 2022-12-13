@@ -62,6 +62,9 @@ class Hash_Table:
         raise KeyError('Key not found')
 
     def __repr__(self) -> str:
+        return self.__str__()
+    
+    def __str__(self) -> str:
         table_repr ={}
         for row in self.table:
             if row is None:
@@ -69,6 +72,7 @@ class Hash_Table:
             else:
                 for kolom_key in iterate(row): #linked list
                     table_repr[kolom_key.key] = kolom_key.data
+
         return str(table_repr)
 
     def __iter__(self):
@@ -85,6 +89,5 @@ def iterate_table(table):
         if row is not None:
             for node in iterate(row):
                 yield (node.key,node.data)
-
 
 
