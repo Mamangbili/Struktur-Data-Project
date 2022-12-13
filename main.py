@@ -49,11 +49,12 @@ class Graph:
     def build_complex_graph(self):
         pass
     
-    def add_vertex(self,val):
-        pass
+    def add_vertex(self,nama :int | str, vertex : Vertex):
+        self.vertices.add(nama, vertex )  
+
     def add_edge(self,vertex1 : Vertex, vertex2 : Vertex):
-        self.graph.add(vertex1, vertex2)
-        self.graph.add(vertex2, vertex1)
+        self.graph.add(vertex1, vertex2)    #tambah vertex 2 di key vertex 1
+        self.graph.add(vertex2, vertex1)    #tambah vertex 1 di key vertex 2
 
     def delete_vertex(self,vertex : Vertex):
         self.graph.delete_key(vertex)
@@ -78,7 +79,7 @@ class Graph:
             self.graph[vertex2].remove(vertex1)         # hapus vertex 1 dari himpunan edge vertex 2
         except:
             raise Exception(f'Tidak ada edge {vertex1}-{vertex2}')
-            
+
 if __name__ == '__main__':
     pass
 

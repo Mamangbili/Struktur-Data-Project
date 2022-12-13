@@ -1,5 +1,4 @@
-a = 10
-if a >= 0 :
-    raise Exception('wakwak')
+def foo(a : str | int):
+    print (a)
 
-print(a)
+
