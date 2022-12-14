@@ -17,17 +17,21 @@ class generateVertex:
         return str(self.vertices)
         
 class Graph:
-    def __init__(self, vertices : Hash_Table = None):
+    def __init__(self, vertices : Hash_Table = Hash_Table(10)):
         self.vertices : Hash_Table = vertices
         self.graph = Hash_Table(10)
     
     def build_complex_graph(self):
-        pass
+        for i,vertex_key in iterate_table(self.vertices):
+            for x,vertex_val in iterate_table(self.vertices):
+                if i==x: continue # agar tidak ada self loop
+                self.add_edge(vertex_key,vertex_val)
     
     def add_vertex(self,nama :int | str, vertex : Vertex):
         self.vertices.add(nama, vertex )  
 
     def add_edge(self,vertex1 : Vertex, vertex2 : Vertex):
+       #---------------cek apakah vertex ada dalam set atau tidak---------
         vertex1_in_vertices = False 
         vertex2_in_vertices = False
         for i,vertex in iterate_table(self.vertices):
@@ -36,7 +40,7 @@ class Graph:
  
         if not (vertex1_in_vertices and vertex2_in_vertices):
             raise Exception('Vertex tidak ditemukan dalam set')
-
+        #----------------------------------------------------------------------
 
         if self.graph == 0:      #graph masih belum ada edge
             self.graph.add(vertex1,vertex2)
@@ -46,7 +50,8 @@ class Graph:
         #jika key vertex1  sudah ada langsung tambahkan    
         try:
             v1 :list = self.graph.get_val(vertex1)
-            v1.append(vertex2)
+            if not(vertex2 in v1): #jika sudah tersambung tidak perlu disambung lagi
+                v1.append(vertex2)
         except:
         #jika belum ada maka dibuat key baru
             self.graph.add(vertex1, [vertex2])
@@ -54,7 +59,8 @@ class Graph:
         #jika key vertex2 sudah ada langsung tambahkan    
         try:
             v2 :list = self.graph.get_val(vertex2)
-            v2.append(vertex1) 
+            if not(vertex1 in v2): #jika sudah tersambung tidak perlu disambung lagi
+                v2.append(vertex1) 
         except:
         #jika belum ada maka dibuat key baru
             self.graph.add(vertex2,[vertex1])
