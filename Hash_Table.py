@@ -84,8 +84,6 @@ class Hash_Table:
     def __getitem__(self,key):
         return self.get_val(key)
         
-
- 
 def iterate_table(table):
     for row in iterate(table):
         if row is not None:
