@@ -4,12 +4,12 @@ class Hash_Table:
     def __init__(self,length):
         self.table = [None]*length
         self.length = length
-        
-    def __hash(self,key):
-        return hash(key)
+
+    def __len__(self):
+        return self.length - self.table.count(None)
 
     def __get_index(self,key):
-        index = self.__hash(key) % self.length
+        index = hash(key) % self.length
         return index
 
     def __find_key(self,key):
@@ -18,8 +18,10 @@ class Hash_Table:
             raise KeyError('Key not found')
 
         #cari key di kolom index tersebut
-        for i,item in enumerate(iterate(self.table[index]),0):
-            if key ==  item.key:
+                                         #LINKED list 
+        kolom = self.table[index]
+        for i,node in enumerate(iterate(kolom),0):
+            if node.key == key :
                 return i
 
         #raise error jika key tidak ditemukan
@@ -29,7 +31,7 @@ class Hash_Table:
         index = self.__get_index(key)
         i_kolom = self.__find_key(key)
                 #cari row           #cari kolom
-        return self.table[index].findVal(i_kolom) 
+        return self.table[index].findVal(i_kolom)  #return list vertices 
 
     def change_val(self,key,data):
         index = self.__get_index(key)

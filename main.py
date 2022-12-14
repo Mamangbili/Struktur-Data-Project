@@ -7,10 +7,13 @@ import tkinter as tk
 import random 
 
 vertices = Hash_Table(10)
-vertices.add(1,Vertex(1,3))
-vertices.add(2,Vertex(4,1))
-vertices.add(3,Vertex(5,6))
-vertices.add(4,Vertex(2,5))
+vertices.add(1,Vertex(122,312))
+vertices.add(2,Vertex(412,143))
+vertices.add(3,Vertex(553,621))
+vertices.add(4,Vertex(242,425))
+vertices.add(4,Vertex(223,552))
+
+# print(vertices.get_val(Vertex(1,1)))
 
 graph = Hash_Table(10)
 graph.add(vertices[1],[vertices[2],vertices[3],vertices[4]])
@@ -18,7 +21,6 @@ graph.add(vertices[2],[vertices[1],vertices[3],vertices[4]])
 graph.add(vertices[3],[vertices[2],vertices[1],vertices[4]])
 graph.add(vertices[4],[vertices[2],vertices[3],vertices[1]])
  
-
 class App:
     def __init__(self):
         self.window = tk.Tk()
@@ -29,8 +31,8 @@ class App:
         self.window.mainloop()
 
 class generateVertex:
-    def __new__(self,n):
-        self.vertices = Hash_Table(n)
+    def __new__(self,n : int):
+        self.vertices = Hash_Table(10)
         for i in range(n):
             x = random.randint(100,600)       # ini ganti lagi nanti sesuai canvas
             y = random.randint(50,550)       # ini ganti lagi nanti sesuai canvas
@@ -41,10 +43,11 @@ class generateVertex:
     def __repr__(self) -> str:
         return str(self.vertices)
 
+
 class Graph:
-    def __init__(self, vertices : Vertex = None):
+    def __init__(self, vertices : Hash_Table = None):
         self.vertices : Hash_Table = vertices
-        self.graph = Hash_Table()
+        self.graph = Hash_Table(10)
     
     def build_complex_graph(self):
         pass
@@ -53,8 +56,32 @@ class Graph:
         self.vertices.add(nama, vertex )  
 
     def add_edge(self,vertex1 : Vertex, vertex2 : Vertex):
-        self.graph.add(vertex1, vertex2)    #tambah vertex 2 di key vertex 1
-        self.graph.add(vertex2, vertex1)    #tambah vertex 1 di key vertex 2
+        try:
+            v1 = self.vertices.get_val(vertex1)
+            v2 = self.vertices.get_val(vertex2)             #dicek apakah vertex ada dalam self.vertices
+        except:
+            raise Exception("Vertex argument tidak ada dalam himpunan vertex")
+        
+        if self.graph == 0:      #graph masih belum ada edge
+            self.graph.add(vertex1,vertex2)
+            self.graph.add(vertex2,vertex1)      # buat key baru
+            return
+
+        #jika key vertex1  sudah ada langsung tambahkan    
+        try:
+            v1 :list = self.graph.get_val(vertex1)
+            v1.append(vertex2)
+        except:
+        #jika belum ada maka dibuat key baru
+            self.graph.add(vertex1, vertex2)
+
+        #jika key vertex2 sudah ada langsung tambahkan    
+        try:
+            v2 :list = self.graph.get_val(vertex2)
+            v2.append(vertex1) 
+        except:
+        #jika belum ada maka dibuat key baru
+            self.graph.add(vertex2,vertex1)
 
     def delete_vertex(self,vertex : Vertex):
         self.graph.delete_key(vertex)
@@ -81,6 +108,10 @@ class Graph:
             raise Exception(f'Tidak ada edge {vertex1}-{vertex2}')
 
 if __name__ == '__main__':
-    pass
+    t = generateVertex(5)
+ 
+    g = Graph(t)
+    g.add_edge(t[0],t[1])
+    # # g.add_edge(t[0],t[2])
 
-    
+    print(g.vertices)
