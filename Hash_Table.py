@@ -13,13 +13,13 @@ class Hash_Table:
         return index
 
     def __find_key(self,key):
-        index = self.__get_index(key)
-        if self.table[index] is None:
+        index_key = self.__get_index(key)
+        if self.table[index_key] is None:
             raise KeyError('Key not found')
 
         #cari key di kolom index tersebut
                                          #LINKED list 
-        kolom = self.table[index]
+        kolom = self.table[index_key]
         for i,node in enumerate(iterate(kolom),0):
             if node.key == key :
                 return i

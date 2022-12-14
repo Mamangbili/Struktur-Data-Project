@@ -28,12 +28,16 @@ class Graph:
         self.vertices.add(nama, vertex )  
 
     def add_edge(self,vertex1 : Vertex, vertex2 : Vertex):
-        try:
-            v1 = self.vertices.get_val(vertex1)
-            v2 = self.vertices.get_val(vertex2)             #dicek apakah vertex ada dalam self.vertices
-        except:
-            raise Exception("Vertex argument tidak ada dalam himpunan vertex")
-        
+        vertex1_in_vertices = False 
+        vertex2_in_vertices = False
+        for i,vertex in iterate_table(self.vertices):
+            if vertex1 == vertex : vertex1_in_vertices = True
+            if vertex2 == vertex : vertex2_in_vertices = True
+ 
+        if not (vertex1_in_vertices and vertex2_in_vertices):
+            raise Exception('Vertex tidak ditemukan dalam set')
+
+
         if self.graph == 0:      #graph masih belum ada edge
             self.graph.add(vertex1,vertex2)
             self.graph.add(vertex2,vertex1)      # buat key baru
@@ -45,7 +49,7 @@ class Graph:
             v1.append(vertex2)
         except:
         #jika belum ada maka dibuat key baru
-            self.graph.add(vertex1, vertex2)
+            self.graph.add(vertex1, [vertex2])
 
         #jika key vertex2 sudah ada langsung tambahkan    
         try:
@@ -53,7 +57,7 @@ class Graph:
             v2.append(vertex1) 
         except:
         #jika belum ada maka dibuat key baru
-            self.graph.add(vertex2,vertex1)
+            self.graph.add(vertex2,[vertex1])
 
     def delete_vertex(self,vertex : Vertex):
         self.graph.delete_key(vertex)
@@ -78,3 +82,7 @@ class Graph:
             self.graph[vertex2].remove(vertex1)         # hapus vertex 1 dari himpunan edge vertex 2
         except:
             raise Exception(f'Tidak ada edge {vertex1}-{vertex2}')
+
+    def reset(self):
+        self.vertices = Hash_Table(10)
+        self.graph = Hash_Table(10)
