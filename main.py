@@ -26,8 +26,8 @@ class MyApp:
     
     def getInput(self):
         inputBox = int(self.txBox.get(1.0,tk.END))
-        self.txBox.delete(1.0,tk.END)
-        self.canvas.create_rectangle((0,0),(800,500),fill='#b8b698')
+        # self.txBox.delete(1.0,tk.END)
+        self.canvas.create_rectangle((0,0),(800,490),fill='#b8b698', outline='')
         self.draw(inputBox)
         print(inputBox)
      
