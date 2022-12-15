@@ -4,14 +4,25 @@ from Hash_Table import Hash_Table, iterate_table
 import random
 
 class generateVertex:
-    def __new__(self,n : int):
+    def __new__(self,n: int, x_max: int, y_max: int):
         self.vertices = Hash_Table(10)
         for i in range(n):
-            x = random.randint(100,600)       # ini ganti lagi nanti sesuai canvas
-            y = random.randint(50,550)       # ini ganti lagi nanti sesuai canvas
-            self.vertices.add(i, Vertex(x,y) )
+            x = random.randint(50,x_max)       # ini ganti lagi nanti sesuai canvas
+            y = random.randint(50,y_max)       # ini ganti lagi nanti sesuai canvas
 
+            if self.__contain(Vertex(x,y)):     
+                x,y = x+27,y+27    #agar tidak duplikat tambah dgn angka random
+                
+            self.vertices.add(i, Vertex(x,y) )
         return self.vertices
+    
+    def __contain(self, vertex: Vertex):
+        try :
+            index = hash(vertex)
+            self.vertices[index]
+            return True
+        except:
+            return False
 
     def __repr__(self) -> str:
         return str(self.vertices)
