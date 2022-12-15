@@ -46,7 +46,7 @@ class MyApp:
         self.root.title('Animasi Graph')
 
     def draw(self, nVertex: int):
-        vertices : Hash_Table  = generateVertex(nVertex,50,480)
+        vertices : Hash_Table  = generateVertex(nVertex,700,480)
         print(vertices)
         g : Graph = Graph(vertices)
         g.build_complex_graph()

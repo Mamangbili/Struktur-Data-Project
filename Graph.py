@@ -8,8 +8,8 @@ class generateVertex:
         
         self.vertices = Hash_Table(10)
         for i in range(n):
-            x = random.randint(x_max,y_max)       # ini ganti lagi nanti sesuai canvas
-            y = random.randint(x_max,y_max)       # ini ganti lagi nanti sesuai canvas
+            x = random.randint(20,x_max)       # ini ganti lagi nanti sesuai canvas
+            y = random.randint(20,y_max)       # ini ganti lagi nanti sesuai canvas
 
             this = super().__new__(self)
 
