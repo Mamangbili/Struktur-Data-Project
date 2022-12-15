@@ -51,14 +51,32 @@ class MyApp:
         g : Graph = Graph(vertices)
         g.build_complex_graph()
 
-        for key,val in iterate_table(g.graph):
-            for vertex in val:
-                                            #jari jari 20
-                self.canvas.create_oval((vertex.x-10,vertex.y-10),(vertex.x+10,vertex.y+10), fill='red')
-                
-        
-        g.reset()
+        #--------draw vertex-----------------------------------------
+        i = len(g.vertices)
+        waktu = 500
+        for key,val in iterate_table(g.vertices):
+            self.canvas.after(waktu*i,self.draw_vertex, val)
+            i-=1
+        #------------------------------------------------------------
 
+        #---------draw edge-------------------------------------------
+        waktu2 = waktu * len(g.vertices) 
+        drawed_key = []  #panjang list val dari tiap key
+        t = 1
+        for key,val in iterate_table(g.graph):
+            drawed_key.append(key)
+            for vertex in val:
+                if vertex not in drawed_key:  
+                    self.canvas.after(waktu2+(500*t),self.draw_edge,key,vertex)                
+                    t+=1
+        #------------------------------------------------------------
+
+        g.reset()
+    def draw_vertex(self, vertex : Vertex):
+        self.canvas.create_oval((vertex.x-10,vertex.y-10),(vertex.x+10,vertex.y+10), fill='red')
+
+    def draw_edge(self, vertex1: Vertex, vertex2: Vertex):
+        self.canvas.create_line((vertex1.x,vertex1.y),(vertex2.x,vertex2.y))
 
 
 
