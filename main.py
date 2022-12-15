@@ -20,6 +20,8 @@ class MyApp:
         self.txBox.pack()
         self.btn = tk.Button(text='Buat Graf',command=self.getInput)
         self.btn.pack()
+        self.note = tk.Label(text='Tunggu animasi selesi untuk buat baru!')
+        self.note.pack()
         #-----------------------------------------------------------------------------
 
         self.root.mainloop()
@@ -43,7 +45,7 @@ class MyApp:
         x = (ws/2) - (w/2) 
         y = (hs/2) - (h/2) - 50
         self.root.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.root.title('Animasi Graph')
+        self.root.title('Animasi Graph Complex')
 
     def draw(self, nVertex: int):
         vertices : Hash_Table  = generateVertex(nVertex,700,480)
