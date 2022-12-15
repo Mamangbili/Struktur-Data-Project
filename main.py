@@ -20,7 +20,7 @@ class MyApp:
         self.txBox.pack()
         self.btn = tk.Button(text='Buat Graf',command=self.getInput)
         self.btn.pack()
-        self.note = tk.Label(text='Tunggu animasi selesi untuk buat baru!')
+        self.note = tk.Label(text='Tunggu animasi selesai untuk buat baru!')
         self.note.pack()
         #-----------------------------------------------------------------------------
 
