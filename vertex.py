@@ -19,6 +19,8 @@ class Vertex:
     def __repr__(self) -> str:
         return f"({self.x}, {self.y})"
 
+    def get(self):
+        return (self.x,self.y)
 
 
 

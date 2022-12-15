@@ -5,17 +5,20 @@ import random
 
 class generateVertex:
     def __new__(self,n: int, x_max: int, y_max: int):
+        
         self.vertices = Hash_Table(10)
         for i in range(n):
-            x = random.randint(50,x_max)       # ini ganti lagi nanti sesuai canvas
-            y = random.randint(50,y_max)       # ini ganti lagi nanti sesuai canvas
+            x = random.randint(x_max,y_max)       # ini ganti lagi nanti sesuai canvas
+            y = random.randint(x_max,y_max)       # ini ganti lagi nanti sesuai canvas
 
-            if self.__contain(Vertex(x,y)):     
+            this = super().__new__(self)
+
+            if this.__contain(Vertex(x,y)):     
                 x,y = x+27,y+27    #agar tidak duplikat tambah dgn angka random
                 
             self.vertices.add(i, Vertex(x,y) )
         return self.vertices
-    
+
     def __contain(self, vertex: Vertex):
         try :
             index = hash(vertex)
