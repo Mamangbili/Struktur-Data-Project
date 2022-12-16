@@ -1,9 +1,8 @@
 from Graph import Graph, generateVertex
 import tkinter as tk
 from vertex import Vertex
-from Hash_Table import Hash_Table,iterate_table
-import time
-
+from Hash_Table import Hash_Table,iterate_table,iterate
+from Stack import Stack
 class MyApp:
     def __init__(self):
         #window dan canvas------------------------------------------------------------
@@ -17,7 +16,7 @@ class MyApp:
         self.text = tk.Label(text='Jumlah Node :')
         self.text.pack()
         self.txBox  = tk.Text(self.root, height = 1, width = 3, bg = "light yellow")
-        self.id = []   #inisial tracking id-After  agar animasi dapat di cancel 
+        self.id = Stack()   #inisial tracking id-After  agar animasi dapat di cancel 
         self.txBox.pack()
         self.btn = tk.Button(text='Buat Graf',command=self.getInput)
         self.btn.pack()
@@ -32,12 +31,11 @@ class MyApp:
         self.canvas.create_rectangle((0,0),(800,490),fill='#b8b698', outline='')
         #-----berhentikan semua animasi (after_id) ketika aplikasi belum selesai-----
         if len(self.id) > 0:
-            for id in self.id[::-1]:
+            for _ in range(len(self.id)):
+                id = self.id.pop()
                 self.root.after_cancel(id)
-                self.id.pop(0)
         #---------------------------------------------------------------------------
         self.draw(inputBox)
-        print(inputBox)
      
 
     def window(self):
@@ -66,7 +64,7 @@ class MyApp:
         waktu = 350
         for key,val in iterate_table(g.vertices):
             idVertex_after = self.canvas.after(waktu*i,self.draw_vertex, val)
-            self.id.append(idVertex_after)
+            self.id.push(idVertex_after)
             i-=1
         #------------------------------------------------------------
         
@@ -79,11 +77,10 @@ class MyApp:
             for vertex in val:
                 if vertex not in drawed_key:  
                     idEdge_after = self.canvas.after(waktu2+(350*t),self.draw_edge,key,vertex)                
-                    self.id.append(idEdge_after)
+                    self.id.push(idEdge_after)
                     t+=1
                     
         #------------------------------------------------------------
-        print(self.id)
         g.reset()
     def draw_vertex(self, vertex : Vertex):
         self.canvas.create_oval((vertex.x-10,vertex.y-10),(vertex.x+10,vertex.y+10), fill='red')
