@@ -1,1 +1,1 @@
-#masih terdapat bug ketika membuat animasi baru saat animasi sedang berjalan
+Animasi pembuatan Graf Komplit pada program tkinter menggunakan struktur data Hash Table sebagai adjacency list
