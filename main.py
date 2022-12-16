@@ -17,7 +17,7 @@ class MyApp:
         self.text = tk.Label(text='Jumlah Node :')
         self.text.pack()
         self.txBox  = tk.Text(self.root, height = 1, width = 3, bg = "light yellow")
-        self.id = []   #inisial id After agar animasi dapat di cancel 
+        self.id = []   #inisial tracking id-After  agar animasi dapat di cancel 
         self.txBox.pack()
         self.btn = tk.Button(text='Buat Graf',command=self.getInput)
         self.btn.pack()
@@ -30,13 +30,12 @@ class MyApp:
         inputBox = int(self.txBox.get(1.0,tk.END))
         self.txBox.delete(1.0,tk.END)
         self.canvas.create_rectangle((0,0),(800,490),fill='#b8b698', outline='')
-        
+        #-----berhentikan semua animasi (after_id) ketika aplikasi belum selesai-----
         if len(self.id) > 0:
             for id in self.id[::-1]:
                 self.root.after_cancel(id)
                 self.id.pop(0)
-        print(self.id)
-        
+        #---------------------------------------------------------------------------
         self.draw(inputBox)
         print(inputBox)
      
