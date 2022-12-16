@@ -16,10 +16,10 @@ class Linked :
     def __iter__(self):
         return self
 
-    def __len__(self):
+    def __len__(self): 
         return self.length
 
-    def __next__(self):
+    def __next__(self): 
         if self.length == 0:
             raise StopIteration
         current_node = self.head

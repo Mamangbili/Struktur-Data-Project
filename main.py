@@ -2,7 +2,7 @@ from Graph import Graph, generateVertex
 import tkinter as tk
 from vertex import Vertex
 from Hash_Table import Hash_Table,iterate_table
-
+import time
 
 class MyApp:
     def __init__(self):
@@ -17,11 +17,10 @@ class MyApp:
         self.text = tk.Label(text='Jumlah Node :')
         self.text.pack()
         self.txBox  = tk.Text(self.root, height = 1, width = 3, bg = "light yellow")
+        self.id = []   #inisial id After agar animasi dapat di cancel 
         self.txBox.pack()
         self.btn = tk.Button(text='Buat Graf',command=self.getInput)
         self.btn.pack()
-        self.note = tk.Label(text='Tunggu animasi selesai untuk buat baru!')
-        self.note.pack()
         #-----------------------------------------------------------------------------
 
         self.root.bind('<Return>', lambda event: self.getInput())
@@ -31,6 +30,13 @@ class MyApp:
         inputBox = int(self.txBox.get(1.0,tk.END))
         self.txBox.delete(1.0,tk.END)
         self.canvas.create_rectangle((0,0),(800,490),fill='#b8b698', outline='')
+        
+        if len(self.id) > 0:
+            for id in self.id[::-1]:
+                self.root.after_cancel(id)
+                self.id.pop(0)
+        print(self.id)
+        
         self.draw(inputBox)
         print(inputBox)
      
@@ -54,14 +60,17 @@ class MyApp:
         g : Graph = Graph(vertices)
         g.build_complex_graph()
 
+
+        
         #--------draw vertex-----------------------------------------
         i = len(g.vertices)
-        waktu = 500
+        waktu = 350
         for key,val in iterate_table(g.vertices):
-            self.canvas.after(waktu*i,self.draw_vertex, val)
+            idVertex_after = self.canvas.after(waktu*i,self.draw_vertex, val)
+            self.id.append(idVertex_after)
             i-=1
         #------------------------------------------------------------
-
+        
         #---------draw edge-------------------------------------------
         waktu2 = waktu * len(g.vertices) 
         drawed_key = []  #panjang list val dari tiap key
@@ -70,10 +79,12 @@ class MyApp:
             drawed_key.append(key)
             for vertex in val:
                 if vertex not in drawed_key:  
-                    self.canvas.after(waktu2+(500*t),self.draw_edge,key,vertex)                
+                    idEdge_after = self.canvas.after(waktu2+(350*t),self.draw_edge,key,vertex)                
+                    self.id.append(idEdge_after)
                     t+=1
+                    
         #------------------------------------------------------------
-
+        print(self.id)
         g.reset()
     def draw_vertex(self, vertex : Vertex):
         self.canvas.create_oval((vertex.x-10,vertex.y-10),(vertex.x+10,vertex.y+10), fill='red')
