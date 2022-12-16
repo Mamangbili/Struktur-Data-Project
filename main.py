@@ -32,7 +32,7 @@ class MyApp:
         #-----berhentikan semua animasi (after_id) ketika aplikasi belum selesai-----
         if len(self.id) > 0:
             for _ in range(len(self.id)):
-                id = self.id.pop()
+                id = self.id.pop()      
                 self.root.after_cancel(id)
         #---------------------------------------------------------------------------
         self.draw(inputBox)
