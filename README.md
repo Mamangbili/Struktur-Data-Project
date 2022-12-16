@@ -1,1 +1,1 @@
-#masih terdapat bug ketika membuat animasi baru ketika animasi sedang berjalan
+#masih terdapat bug ketika membuat animasi baru saat animasi sedang berjalan
