@@ -27,8 +27,11 @@ class MyApp:
         self.root.mainloop()
     
     def getInput(self):
-        inputBox = int(self.txBox.get(1.0,tk.END))
-        self.txBox.delete(1.0,tk.END)
+        try:
+            inputBox = int(self.txBox.get(1.0,tk.END))
+        except ValueError:
+            self.txBox.delete('0.0',tk.END)
+        self.txBox.delete('0.0',tk.END)
         self.canvas.create_rectangle((0,0),(800,490),fill='#b8b698', outline='')
         #-----berhentikan semua animasi (after_id) ketika aplikasi belum selesai-----
         if len(self.id) > 0:
@@ -77,12 +80,12 @@ class MyApp:
             drawed_key.append(key)
             for vertex in val:
                 if vertex not in drawed_key:  
-                    idEdge_after = self.canvas.after(waktu2+(350*t),self.draw_edge,key,vertex)                
+                    idEdge_after = self.canvas.after(waktu2+(waktu*t),self.draw_edge,key,vertex)                
                     self.id.push(idEdge_after)
-                    t+=1
-                    
+                    t+=1             
         #------------------------------------------------------------
         g.reset()
+
     def draw_vertex(self, vertex : Vertex):
         self.canvas.create_oval((vertex.x-10,vertex.y-10),(vertex.x+10,vertex.y+10), fill='red')
 

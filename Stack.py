@@ -8,7 +8,6 @@ class Stack:
         self.stack.add_last(val)
 
     def pop(self):
-        self.stack
         return self.stack.pop()
 
     def __len__(self):
