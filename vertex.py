@@ -12,15 +12,14 @@ class Vertex:
                 return True
         except:
             return False
-
+        
     def __hash__(self) -> int:
         return hash((self.x,self.y))
 
     def __repr__(self) -> str:
         return f"({self.x}, {self.y})"
 
-    def get(self):
-        return (self.x,self.y)
+
 
 
 

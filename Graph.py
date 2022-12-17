@@ -40,7 +40,7 @@ class Graph:
             for x,vertex_val in iterate_table(self.vertices):
                 if i==x: continue # agar tidak ada self loop
                 self.add_edge(vertex_key,vertex_val)
-    
+   
     def add_vertex(self,nama :int | str, vertex : Vertex):
         self.vertices.add(nama, vertex )  
 

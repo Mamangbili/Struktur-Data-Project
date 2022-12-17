@@ -16,3 +16,4 @@ class Stack:
 
     def __repr__(self) -> str:
         return self.stack.__str__()
+

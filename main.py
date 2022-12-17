@@ -8,6 +8,7 @@ class MyApp:
         #window dan canvas------------------------------------------------------------
         self.root = tk.Tk()
         self.window()
+        self.root.configure(background='lightgreen')
         self.canvas = tk.Canvas(width=800, height=500,background='#b8b698')
         self.canvas.pack()
         #-----------------------------------------------------------------------------
