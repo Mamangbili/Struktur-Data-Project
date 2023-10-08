@@ -78,6 +78,7 @@ class Graph:
         except:
         #jika belum ada maka dibuat key baru
             self.graph.add(vertex2,[vertex1])
+            super()
 
     def delete_vertex(self,vertex : Vertex):
         self.graph.delete_key(vertex)
@@ -106,3 +107,6 @@ class Graph:
     def reset(self):
         self.vertices = Hash_Table(10)
         self.graph = Hash_Table(10)
+
+
+

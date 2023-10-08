@@ -1,21 +1,30 @@
-from Graph import Graph, generateVertex
-import tkinter as tk
-from vertex import Vertex
+class A:
+    a : int
+    def f(self):
+        print('cetak A')
 
-root = tk.Tk()
-root.geometry('500x500+400+100')
+class B(A):
+    b : int
+    def f(self):
+        print('cetak B')
 
-txBox = tk.Text(root, height=2, width=9, bg='light yellow')
-txBox.pack()
-def getInput():
-    inputBox = txBox.get(1.0,"end-1c")
-    print('awe')
-    label.config(text=inputBox)
+class C(A):
+    c : int
 
-btn = tk.Button(root,text='Tampilkan', command=getInput )
-btn.pack()
+class E(C):
+    e : int
+    # def f(self):
+    #     print('cetak E')
 
-label = tk.Label(root, text='')
-label.pack()
-root.mainloop()
-        
+class D(E,B):
+    d: int
+    def f(self):
+        print('cetak D')
+        super().f()
+
+d = D()
+b = B()
+
+print([cls.__name__ for cls in D.__mro__])
+
+    
